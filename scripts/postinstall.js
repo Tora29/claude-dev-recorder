@@ -51,24 +51,85 @@ function logInfo(message) {
 }
 
 /**
+ * グローバルインストール時の設定
+ */
+async function setupGlobalInstallation() {
+  const { execSync } = await import('child_process');
+  const path = await import('path');
+
+  // コマンドパスを取得
+  const prefix = process.env.npm_config_prefix || '/usr/local';
+  const commandPath = path.default.join(prefix, 'bin', 'claude-dev-recorder');
+
+  try {
+    // claude mcp addコマンドを実行
+    const command = `claude mcp add --scope user --transport stdio claudeDevRecorder node ${commandPath}`;
+    logInfo('Registering MCP server using claude mcp add...');
+
+    const output = execSync(command, {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    logSuccess('MCP server registered successfully');
+
+    return {
+      success: true,
+      configPath: '~/.claude.json',
+      commandPath,
+      output: output.trim(),
+    };
+  } catch (error) {
+    // claude コマンドが見つからない場合のフォールバック処理は行わない
+    // ユーザーに手動で追加するよう案内
+    throw new Error(
+      `Failed to run 'claude mcp add' command. ` +
+        `Please ensure Claude Code is installed and the 'claude' CLI is available. ` +
+        `Error: ${error instanceof Error ? error.message : String(error)}`
+    );
+  }
+}
+
+/**
  * メイン処理
  */
 async function main() {
   logHeader('claude-dev-recorder: Post-Installation');
 
-  // グローバルインストールの場合はスキップ
+  // グローバルインストールの場合
   if (process.env.npm_config_global === 'true') {
     console.log('');
-    logInfo('Global installation detected. Skipping project-specific setup.');
+    logInfo('Global installation detected. Configuring user-level MCP server...');
     console.log('');
-    log('To use claude-dev-recorder in a project:', 'bright');
-    console.log('');
-    console.log('  1. Navigate to your project directory');
-    console.log('  2. Ensure Claude Code is initialized (.claude/ directory exists)');
-    console.log('  3. The MCP server will be available for use');
-    console.log('');
-    logInfo('For more information, visit: https://github.com/Tora29/claude-dev-recorder');
-    console.log('');
+
+    try {
+      const result = await setupGlobalInstallation();
+
+      console.log('');
+      logSuccess('Global installation completed!');
+      console.log('');
+      log('Configuration details:', 'bright');
+      console.log(`  Config file: ${result.configPath}`);
+      console.log(`  Command path: ${result.commandPath}`);
+      console.log('');
+      log('Next steps:', 'bright');
+      console.log('');
+      console.log('  1. Restart Claude Code to activate the MCP server');
+      console.log('  2. Use /mcp command to verify "claudeDevRecorder" is listed');
+      console.log('  3. Navigate to any project to start using the tools');
+      console.log('');
+      logInfo('For more information, visit: https://github.com/Tora29/claude-dev-recorder');
+      console.log('');
+    } catch (error) {
+      console.log('');
+      logError('Failed to configure global installation:');
+      console.error(error);
+      console.log('');
+      logInfo('You may need to manually add the MCP server to ~/.claude/config.json');
+      console.log('');
+      process.exit(1);
+    }
+
     return;
   }
 
