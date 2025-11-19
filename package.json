@@ -12,8 +12,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "postinstall": "tsx scripts/postinstall.js",
-    "preuninstall": "tsx scripts/preuninstall.js",
+    "postinstall": "node scripts/postinstall.js",
+    "preuninstall": "node scripts/preuninstall.js",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",

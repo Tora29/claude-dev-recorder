@@ -57,8 +57,8 @@ async function main() {
   logHeader('claude-dev-recorder: Pre-Uninstallation');
 
   try {
-    // TypeScriptファイルを動的インポート
-    const installerModule = await import('../src/setup/installer.ts');
+    // コンパイル済みJSファイルを動的インポート
+    const installerModule = await import('../dist/setup/installer.js');
     const { Installer } = installerModule;
 
     // 1. アンインストール実行

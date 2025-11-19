@@ -56,10 +56,26 @@ function logInfo(message) {
 async function main() {
   logHeader('claude-dev-recorder: Post-Installation');
 
+  // グローバルインストールの場合はスキップ
+  if (process.env.npm_config_global === 'true') {
+    console.log('');
+    logInfo('Global installation detected. Skipping project-specific setup.');
+    console.log('');
+    log('To use claude-dev-recorder in a project:', 'bright');
+    console.log('');
+    console.log('  1. Navigate to your project directory');
+    console.log('  2. Ensure Claude Code is initialized (.claude/ directory exists)');
+    console.log('  3. The MCP server will be available for use');
+    console.log('');
+    logInfo('For more information, visit: https://github.com/Tora29/claude-dev-recorder');
+    console.log('');
+    return;
+  }
+
   try {
-    // TypeScriptファイルを動的インポート
-    const validatorModule = await import('../src/setup/validator.ts');
-    const installerModule = await import('../src/setup/installer.ts');
+    // コンパイル済みJSファイルを動的インポート
+    const validatorModule = await import('../dist/setup/validator.js');
+    const installerModule = await import('../dist/setup/installer.js');
 
     const { validateEnvironment } = validatorModule;
     const { Installer } = installerModule;
