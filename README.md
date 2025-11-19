@@ -90,6 +90,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `prompt` (required): 検索クエリ
 - `maxResults` (optional): 最大検索結果数（デフォルト: 3）
 - `threshold` (optional): 類似度の閾値（デフォルト: 0.7）
@@ -103,6 +104,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `files` (required): 変更したファイルのリスト
 - `prompt` (required): 実装の目的や内容
 - `summary` (optional): 実装の要約
@@ -116,6 +118,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `action` (required): "archive" または "delete"
 - `docId` (required): ドキュメントID
 
@@ -128,6 +131,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `threshold` (optional): 類似度の閾値（デフォルト: 0.85）
 - `autoMerge` (optional): 自動マージを有効化
 
@@ -140,6 +144,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `keyword` (required): 検索キーワード
 - `tags` (optional): タグのリスト
 
@@ -152,6 +157,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `threshold` (optional): 類似度の閾値（デフォルト: 0.85）
 
 ### 7. check_document_quality
@@ -163,6 +169,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `fix` (optional): 自動修正を有効化（デフォルト: false）
 
 ### 8. get_document_history
@@ -174,6 +181,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `docId` (required): ドキュメントID
 
 ### 9. rollback_merge
@@ -185,6 +193,7 @@ Claude DesktopまたはClaude Codeから、以下のツールが利用可能に�
 ```
 
 **パラメータ:**
+
 - `mergedDocId` (required): マージされたドキュメントのID
 
 ## Architecture

@@ -11,10 +11,7 @@ import type { Document } from '../models/Document.js';
  */
 export const SearchRelatedDocsSchema = z.object({
   prompt: z.string().describe('The prompt or query to search for related documents'),
-  maxResults: z
-    .number()
-    .optional()
-    .describe('Maximum number of results to return (default: 3)'),
+  maxResults: z.number().optional().describe('Maximum number of results to return (default: 3)'),
   threshold: z
     .number()
     .optional()
@@ -24,10 +21,7 @@ export const SearchRelatedDocsSchema = z.object({
 export const RecordImplementationSchema = z.object({
   files: z.array(z.string()).describe('Array of file paths that were changed'),
   prompt: z.string().describe('The prompt or task description'),
-  summary: z
-    .string()
-    .optional()
-    .describe('Optional custom summary (auto-generated if omitted)'),
+  summary: z.string().optional().describe('Optional custom summary (auto-generated if omitted)'),
 });
 
 export const ManageDocumentsSchema = z.object({
@@ -59,10 +53,7 @@ export const PreviewMergeSchema = z.object({
 });
 
 export const CheckDocumentQualitySchema = z.object({
-  fix: z
-    .boolean()
-    .optional()
-    .describe('Automatically fix issues if possible (default: false)'),
+  fix: z.boolean().optional().describe('Automatically fix issues if possible (default: false)'),
 });
 
 export const GetDocumentHistorySchema = z.object({
