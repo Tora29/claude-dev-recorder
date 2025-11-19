@@ -1,0 +1,52 @@
+{
+  "patterns": [
+    {
+      "name": "API_KEY",
+      "regex": "API_KEY\\s*=\\s*[\"']([^\"']+)[\"']",
+      "severity": "high"
+    },
+    {
+      "name": "OpenAI_Key",
+      "regex": "sk-[a-zA-Z0-9]{32,}",
+      "severity": "critical"
+    },
+    {
+      "name": "GitHub_Token",
+      "regex": "ghp_[a-zA-Z0-9]{36}",
+      "severity": "critical"
+    },
+    {
+      "name": "AWS_Key",
+      "regex": "AKIA[A-Z0-9]{16}",
+      "severity": "critical"
+    },
+    {
+      "name": "Generic_Secret",
+      "regex": "SECRET\\s*=\\s*[\"']([^\"']+)[\"']",
+      "severity": "high"
+    },
+    {
+      "name": "Private_Key",
+      "regex": "-----BEGIN\\s+(RSA\\s+)?PRIVATE\\s+KEY-----",
+      "severity": "critical"
+    },
+    {
+      "name": "JWT_Token",
+      "regex": "eyJ[a-zA-Z0-9_-]+\\.eyJ[a-zA-Z0-9_-]+\\.[a-zA-Z0-9_-]+",
+      "severity": "high"
+    },
+    {
+      "name": "Password",
+      "regex": "PASSWORD\\s*=\\s*[\"']([^\"']+)[\"']",
+      "severity": "high"
+    }
+  ],
+  "whitelist": [
+    "example-api-key-for-testing",
+    "placeholder-secret",
+    "your-api-key-here",
+    "sk-test-example",
+    "AKIAIOSFODNN7EXAMPLE"
+  ],
+  "excludeFiles": [".env.example", "README.md", "*.example.json", "docs/**/*"]
+}

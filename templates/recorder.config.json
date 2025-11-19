@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "summarizer": {
+    "provider": "ollama",
+    "fallback": "keyword",
+    "maxLength": 500,
+    "ollamaModel": "llama3.2:3b",
+    "ollamaEndpoint": "http://localhost:11434"
+  },
+  "vectorStore": {
+    "provider": "vectra",
+    "embeddingModel": "nomic-embed-text",
+    "indexPath": ".claude/docs/.index",
+    "similarityThreshold": 0.7
+  },
+  "documentManager": {
+    "autoArchiveDays": 30,
+    "maxDocuments": 1000,
+    "autoCleanup": true
+  },
+  "search": {
+    "maxResults": 3,
+    "includeArchived": false
+  },
+  "git": {
+    "enabled": true,
+    "autoCommit": false
+  },
+  "fileWatcher": {
+    "enabled": true,
+    "syncIntervalSeconds": 60,
+    "watchGitHooks": true
+  },
+  "integrityChecker": {
+    "checkOnStartup": true,
+    "autoRecover": true,
+    "validateMetadata": true
+  },
+  "sensitiveData": {
+    "enabled": true,
+    "autoMask": true,
+    "warnUser": true,
+    "customPatternsPath": ".claude/sensitive-patterns.json"
+  },
+  "logging": {
+    "level": "info",
+    "logPath": ".claude/docs/.logs"
+  }
+}
