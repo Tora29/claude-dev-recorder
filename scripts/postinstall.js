@@ -62,6 +62,18 @@ async function setupGlobalInstallation() {
   const commandPath = path.default.join(prefix, 'bin', 'claude-dev-recorder');
 
   try {
+    // 既存の登録を確認して削除
+    try {
+      logInfo('Checking for existing MCP server registration...');
+      execSync('claude mcp remove --scope user claudeDevRecorder', {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+      logInfo('Removed existing registration');
+    } catch (removeError) {
+      // 削除に失敗した場合（存在しない場合）は無視
+    }
+
     // claude mcp addコマンドを実行
     const command = `claude mcp add --scope user --transport stdio claudeDevRecorder node ${commandPath}`;
     logInfo('Registering MCP server using claude mcp add...');
